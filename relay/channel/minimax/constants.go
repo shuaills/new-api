@@ -10,4 +10,12 @@ var ModelList = []string{
 	"abab5.5s-chat",
 }
 
+// https://platform.minimaxi.com/document/t2a_http?key=68ad78146fe587e3fbfe8e03
+var AudioModelList = []string{
+	"speech-02-hd",
+	"speech-02-turbo",
+	"speech-01-hd",
+	"speech-01-turbo",
+}
+
 var ChannelName = "minimax"
