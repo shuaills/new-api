@@ -41,6 +41,7 @@ var ModelList = []string{
 	"davinci-002", "babbage-002",
 	"dall-e-3", "gpt-image-1",
 	"whisper-1",
+	"gpt-4o-transcribe", "gpt-4o-mini-transcribe",
 	"tts-1", "tts-1-1106", "tts-1-hd", "tts-1-hd-1106",
 }
 

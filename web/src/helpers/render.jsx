@@ -530,6 +530,8 @@ export const modelColorMap = {
   'tts-1-hd': 'rgb(255,215,0)', // 金色
   'tts-1-hd-1106': 'rgb(255,223,0)', // 金黄色（略有区别）
   'whisper-1': 'rgb(245,245,220)', // 米色
+  'gpt-4o-transcribe': 'rgb(173,216,230)', // 浅蓝色 - GPT-4o转录模型
+  'gpt-4o-mini-transcribe': 'rgb(144,238,144)', // 浅绿色 - GPT-4o迷你转录模型
   'claude-3-opus-20240229': 'rgb(255,132,31)', // 橙红色
   'claude-3-sonnet-20240229': 'rgb(253,135,93)', // 橙色
   'claude-3-haiku-20240307': 'rgb(255,175,146)', // 浅橙色

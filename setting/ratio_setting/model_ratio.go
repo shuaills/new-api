@@ -116,6 +116,43 @@ var defaultModelRatio = map[string]float64{
 	"text-davinci-edit-001":                     10,
 	"code-davinci-edit-001":                     10,
 	"whisper-1":                                 15,  // $0.006 / minute -> $0.006 / 150 words -> $0.006 / 200 tokens -> $0.03 / 1k tokens
+	// GPT-4o Transcribe models - Azure OpenAI 2025 (基于Token计费)
+	// 这些是新的语音转文本模型，基于GPT-4o技术，支持实时转录和传统音频文件转录
+	// 重要：这些模型按Token计费，不是按音频时长计费
+	//
+	// Azure OpenAI 定价体系说明:
+	// - 支持3种计费模式: Pay-As-You-Go, Provisioned Throughput Units (PTUs), Batch API (50%折扣)
+	// - 支持多种部署类型: Global, Data Zone (EU/US), Regional (27个区域)
+	// - 音频模型在官方价格页面显示为"$-"，表示预览阶段价格待确定
+	//
+	// Azure OpenAI 官方价格 (2025年最新):
+	// gpt-4o-transcribe:
+	//   - Text Input: $2.50 / 1M tokens    (input_tokens中的text_tokens部分)
+	//   - Text Output: $10.00 / 1M tokens  (output_tokens，但转录模型中总是0)
+	//   - Audio Input: $6.00 / 1M tokens   (input_tokens中的audio_tokens部分)
+	//
+	// gpt-4o-mini-transcribe:
+	//   - Text Input: $1.25 / 1M tokens    (input_tokens中的text_tokens部分)
+	//   - Text Output: $5.00 / 1M tokens   (output_tokens，但转录模型中总是0)
+	//   - Audio Input: $3.00 / 1M tokens   (input_tokens中的audio_tokens部分)
+	//
+	// 🔍 Token类型说明:
+	// input_tokens = audio_tokens + text_tokens
+	// - audio_tokens: 音频内容转换的token数量
+	// - text_tokens: 用户提供的文本提示词token数量
+	// - output_tokens: 生成的文本token数量 (转录模型中恒为0，因为转录不是生成任务)
+	//
+	// 💰 实际计费: 转录任务只收取input_tokens费用，主要是audio_tokens
+	// 如需计算转录文本的token数量，需要手动使用tiktoken等工具进行tokenize
+	//
+	// 倍率计算基于new-api基准价格$0.002/1k tokens ($2/1M tokens):
+	// - gpt-4o-transcribe: $6/1M audio tokens = 3倍率
+	// - gpt-4o-mini-transcribe: $3/1M audio tokens = 1.5倍率
+	//
+	// 支持格式: PCM16 24kHz, 支持WebSocket实时流和传统HTTP音频文件上传
+	// 当前部署区域: East US2, Sweden Central (Global Standard部署)
+	"gpt-4o-transcribe":                         3,    // Azure OpenAI transcribe model, $6/1M audio tokens (官方价格)
+	"gpt-4o-mini-transcribe":                    1.5,  // Azure OpenAI mini transcribe, $3/1M audio tokens (官方价格)
 	"tts-1":                                     7.5, // 1k characters -> $0.015
 	"tts-1-1106":                                7.5, // 1k characters -> $0.015
 	"tts-1-hd":                                  15,  // 1k characters -> $0.03
